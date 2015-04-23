@@ -5,12 +5,24 @@
 </head>
 
 <body>
-	{{>Nav}}
-	<div class="container">
-		{{>Router}}
-		<br><br><br>
+	<div class="wrapper">
+		{{>Nav}}
+		<div class="container">
+			{{>Router}}
+		</div>
 	</div>
+	{{>Footer}}
 </body>
+
+<template name="Footer">
+	<footer>
+		<div class="row">
+			<div class="col-sm-12 centered">
+				Copyright &copy; 2015 — <a href="http://ruben.codes">Ruben.Codes</a> — All rights reserved.
+			</div>
+		</div>
+	</footer>
+</template>
 
 <template name="Nav">
 	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">

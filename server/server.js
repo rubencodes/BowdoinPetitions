@@ -1,4 +1,3 @@
-
 Meteor.publish('petitions', function() {
 	return Petitions.find();
 });
@@ -16,7 +15,7 @@ Meteor.methods({
 	//authenticate with Bowdoin server; returns 0 is incorrect, random string otherwise
 	authenticate: function(username, password) {
 		var result = HTTP.post("https://www.bowdoin.edu/apps/mobile/login.php", { params: { username: username, password: password } });
-		if(result && result.content != "0" || username == "jayz") {
+		if(result && result.content != "0") {
 			var crypto = Npm.require("crypto");
 			var key = crypto.randomBytes(20).toString('hex');
 
