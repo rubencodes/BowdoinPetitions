@@ -90,6 +90,20 @@ Meteor.methods({
 			} else return false;
 		} else return false;
 	},
+
+	closePetition: function(key, username, petitionId, name, body) {
+		if(Meteor.call("authWithKey", key, username)) {
+			var petition = Petitions.findOne({ _id: petitionId});
+
+			if(petition && petition.author == username) {
+				return Petitions.update({ _id: petitionId }, { 
+					$set: { 
+						"closed": true, 
+					}
+				});
+			} else return false;
+		} else return false;
+	},
 	
 	//removes petition entirely
 	removePetition: function(key, username, petitionId) {

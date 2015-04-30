@@ -189,14 +189,23 @@
 				<b>Created by:</b> <a href="mailto:{{author}}@bowdoin.edu" target="_blank">{{author}}@bowdoin.edu</a>
 				<br><br>
 				<div class="btn-group">
-					{{#if isSigned _id}}
-						<button id="petition-unsign" class="btn btn-primary" type="submit">Remove Signature</button>
+					{{#if isClosed _id}}
+						<h3>This Peition is Now Closed.</h3>
 					{{else}}
-						<button id="petition-sign" class="btn btn-primary" type="submit">Sign Petition</button>
+						{{#if isSigned _id}}
+							<button id="petition-unsign" class="btn btn-primary" type="submit">Remove Signature</button>
+						{{else}}
+							<button id="petition-sign" class="btn btn-primary" type="submit">Sign Petition</button>
+						{{/if}}
 					{{/if}}
 					{{#if ownsPetition _id}}
-						<a class="btn btn-info" href="{{pathFor 'petition.edit'}}">Edit</a>
-						<a class="btn btn-default" href="{{pathFor 'petition.report'}}">View Report</a>
+						{{#if isClosed _id}}
+							<a class="btn btn-default" href="{{pathFor 'petition.report'}}">View Report</a>
+						{{else}}
+							<a class="btn btn-info" href="{{pathFor 'petition.edit'}}">Edit</a>
+							<a class="btn btn-default" href="{{pathFor 'petition.report'}}">View Report</a>
+							<button id="petition-close" class="btn btn-danger" >Close Petition</button>
+						{{/if}}
 					{{else}}
 						<button id="petition-flag" class="btn btn-danger">Flag</button>
 					{{/if}}

@@ -245,6 +245,11 @@ Template.ViewPetition.helpers({
 		}
 		
 		return signers;
+	},
+	isClosed: function(petitionId) {
+		var username = Session.get("username");
+		var petition = Petitions.findOne({ _id: petitionId });
+		return petition.closed == true;
 	}
 });
 Template.ViewPetition.events({
@@ -309,6 +314,24 @@ Template.ViewPetition.events({
 	},
 	'click #emails': function() {
 		document.getElementById("emails").select();
+	},
+	'click #petition-close': function() {
+		var key = Session.get("auth-key");
+		var username = Session.get("username");
+		
+		if(username && key) { //if signed in, allow signing
+			if(confirm("Are you sure you want to close this petition? This cannot be undone.")) {
+				var petitionId = document.getElementById("petition-id").value;
+				Meteor.call("closePetition", key, username, petitionId, function(error, result) {
+					if (error) {
+						alert("Error! Could not sign petition. Please try again later.")
+					}
+				});
+			} 
+		} else {
+			Session.set("return", Router.current().url);
+			Router.go("/signin");
+		}
 	}
 });
 
