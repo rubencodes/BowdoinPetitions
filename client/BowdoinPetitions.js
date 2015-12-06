@@ -209,6 +209,7 @@ Template.PetitionReport.helpers({
 		return signers;
 	}
 });
+
 Template.ViewPetition.helpers({
 	loggedIn: function() {
 		return Session.get("username") && Session.get("auth-key");
